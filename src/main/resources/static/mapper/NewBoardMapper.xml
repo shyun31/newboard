@@ -8,8 +8,8 @@
         SELECT *
         FROM board
         WHERE 1 = 1
-        <if test="no != null &amp;&amp; !no.equals('')">
-            AND no = #{no}
+        <if test="non != null &amp;&amp; !non.equals('')">
+            AND non = #{non}
         </if>
         <if test="title != null &amp;&amp; !title.equals('')">
             AND title = #{title}
@@ -18,6 +18,41 @@
 
     <delete id="deleteBoard">
         DELETE FROM board
-        WHERE no = #{no}
+        WHERE non = #{non}
     </delete>
+
+    <insert id="insertBoard">
+        INSERT INTO board
+             ( NON
+             , SUB_NO
+             , SEQ
+             , LARGE_CODE
+             , MIDDLE_CODE
+             , TITLE
+             , CONTENTS
+             , LEVEL2
+             , FILE_PATH
+             , FILE_NAME
+             , REG_DATE
+             , REG_USER
+             , MOD_DATE
+             , MOD_USER
+             )
+        VALUES
+             ( #{non}
+             , #{subNo}
+             , #{seq}
+             , #{largeCode}
+             , #{middleCode}
+             , #{title}
+             , #{contents}
+             , #{level2}
+             , #{filePath}
+             , #{fileName}
+             , #{regDate}
+             , #{regUser}
+             , #{modDate}
+             , #{modUser}
+             )
+    </insert>
 </mapper>

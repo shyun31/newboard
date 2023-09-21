@@ -1,21 +1,23 @@
 <template>
   <div>
+    <InsertBoard v-if="this.openModal == true"/>
+
     <div>
       <h2>조회</h2>
     </div>
     <div class="searchNav">
       번호 : <input id="searchNum" type="number" v-model="searchNum"/>&nbsp;&nbsp;
-      Title : <input id="searchTitle" type="text" v-model="searchTitle"/>&nbsp;&nbsp;
+      제목 : <input id="searchTitle" type="text" v-model="searchTitle"/>&nbsp;&nbsp;
       <button id="search" type="submit" @click="searchBt">조회</button>
     </div>
-    <div class="savePopup">
+    <div class="pop">
       <button @click="savePopup()">등록</button>
       <button @click="deleteBt()">삭제</button>
     </div>
     <br><br>
     <div class="listWrap">
       <form>
-        <table class="tbList">
+        <table class="tbList" border="1">
           <tr>
             <th scope="row">
               <input type="checkbox"
@@ -33,9 +35,9 @@
           </tr>
           <tr v-for="(row,i) in list" :key="i">
             <th scope="row">
-              <input type="checkbox" v-model="checkList" :value="row.no">
+              <input type="checkbox" v-model="checkList" :value="row.non">
             </th>
-            <td>{{row.no}}</td>
+            <td>{{row.non}}</td>
             <td>{{row.subNo}}</td>
             <td>{{row.title}}</td>
             <td>{{row.fileName}}</td>
@@ -51,6 +53,8 @@
 </template>
 
 <script>
+import InsertBoard from './InsertBoard';
+
 export default {
   data() {
     return {
@@ -58,15 +62,19 @@ export default {
       boardList: [],
       allChecked: false,
       check: false,
+      openModal: false,
       searchNum: '',
       searchTitle: null,
       checkList: []
     }
   },
+  components: {
+    InsertBoard,
+  },
   methods: {
     searchBt() {
       this.body = {
-        no : this.searchNum,
+        non : this.searchNum,
         title : this. searchTitle
       }
       this.$axios.get('http://localhost:8081/search', {params: this.body})
@@ -84,15 +92,42 @@ export default {
       this.checkList.forEach((data) => {
         this.$axios.delete('http://localhost:8081/delete/' + data, {})
             .then(() => {
+               this.searchBt()
             })
       })
+    },
+    savePopup() {
+      this.openModal = !this.openModal
+    },
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault()
+      // Trigger submit handler
+      this.handleSubmit()
+    },
+    checkFormValidity() {
+      const valid = this.$refs.form.checkValidity()
+      this.nameState = valid
+      return valid
+    },
+    handleSubmit() {
+      // Exit when the form isn't valid
+      if (!this.checkFormValidity()) {
+        return
+      }
+      // Push the name to submitted names
+      this.submittedNames.push(this.name)
+      // Hide the modal manually
+      /* this.$nextTick(() => {
+        // this.$bvModal.hide('addQna')
+      }) */
     },
   }
 }
 </script>
 
 <style scoped>
-  .savePopup {
+  .pop {
     float: right;
   }
 </style>

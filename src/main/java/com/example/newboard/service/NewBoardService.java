@@ -19,8 +19,13 @@ public class NewBoardService {
     }
 
     // 삭제
-    public void deleteBoard(Integer no) {
-        newBoardMapper.deleteBoard(no);
+    public void deleteBoard(Integer non) {
+        newBoardMapper.deleteBoard(non);
+    }
+
+    // 저장
+    public void insertBoard(Board board) {
+        newBoardMapper.insertBoard(board);
     }
 
 

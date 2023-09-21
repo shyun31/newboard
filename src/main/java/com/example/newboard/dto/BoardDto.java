@@ -8,14 +8,14 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class BoardDto {
-    private Integer no;
+    private Integer non;
     private Integer subNo;
     private Integer seq;
     private String largeCode;
     private String middleCode;
     private String title;
     private String contents;
-    private Integer level;
+    private Integer level2;
     private String filePath;
     private String fileName;
     private Timestamp regDate;

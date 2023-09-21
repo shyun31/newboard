@@ -7,7 +7,13 @@ import java.util.List;
 
 @Mapper
 public interface NewBoardMapper {
+
+    // 조회
     List<Board> searchBoard(Board board);
 
-    void deleteBoard(Integer no);
+    // 삭제
+    void deleteBoard(Integer non);
+
+    // 저장
+    void insertBoard(Board board);
 }

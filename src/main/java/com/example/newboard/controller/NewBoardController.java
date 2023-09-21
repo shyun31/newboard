@@ -33,5 +33,11 @@ public class NewBoardController {
         newBoardService.deleteBoard(boardNo);
     }
 
+    // 저장
+    @PostMapping("/save")
+    public void board(Board board) {
+        newBoardService.insertBoard(board);
+    }
+
 }
 
