@@ -1,13 +1,9 @@
 package com.example.newboard.controller;
 
 import com.example.newboard.entity.Board;
-import com.example.newboard.mapper.NewBoardMapper;
 import com.example.newboard.service.NewBoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,10 +21,16 @@ public class NewBoardController {
         return "test!";
     }
 
-    // 보드 조회
+    // 조회
     @GetMapping("/search")
-    public List<Board> searchBoard() {
-        return newBoardService.searchBoard();
+    public List<Board> searchBoard(Board board) {
+        return newBoardService.searchBoard(board);
+    }
+
+    //삭제
+    @DeleteMapping("/delete/{boardNo}")
+    public void board(@PathVariable Integer boardNo) {
+        newBoardService.deleteBoard(boardNo);
     }
 
 }

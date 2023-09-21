@@ -13,7 +13,15 @@ public class NewBoardService {
 
     private final NewBoardMapper newBoardMapper;
 
-    public List<Board> searchBoard() {
-        return newBoardMapper.searchBoard();
+    // 조회
+    public List<Board> searchBoard(Board board) {
+        return newBoardMapper.searchBoard(board);
     }
+
+    // 삭제
+    public void deleteBoard(Integer no) {
+        newBoardMapper.deleteBoard(no);
+    }
+
+
 }

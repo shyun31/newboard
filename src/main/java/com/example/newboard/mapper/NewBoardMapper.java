@@ -7,5 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface NewBoardMapper {
-    List<Board> searchBoard();
+    List<Board> searchBoard(Board board);
+
+    void deleteBoard(Integer no);
 }
