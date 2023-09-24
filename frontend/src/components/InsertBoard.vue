@@ -10,15 +10,15 @@
           </colgroup>
           <tr>
             <th>번호</th>
-            <td><input type="number" v-model="non" ref="non" /></td>
+            <td><input type="number" id="non" v-model="non"/></td>
           </tr>
           <tr>
             <th>구분</th>
-            <td><input type="number" v-model="subNo" ref="subNo" /></td>
+            <td><input type="number" id="subNo" v-model="subNo" /></td>
           </tr>
           <tr>
             <th>SEQ</th>
-            <td><input type="number" v-model="seq" ref="seq" /></td>
+            <td><input type="number" id="seq" v-model="seq" /></td>
           </tr>
           <tr>
             <th>제목</th>
@@ -30,7 +30,7 @@
 
     <div class="btnWrap">
       <a @click="fnList" class="btn">목록</a>
-      <a @click="fnAddProc" class="btnAdd btn">저장</a>
+      <a @click="saveBt" class="btnAdd btn">저장</a>
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
       subNo:'',
       seq:'',
       title:'',
-      form:'' //form 전송 데이터
+      form:''
 
     }
   }
@@ -52,7 +52,7 @@ export default {
       this.$router.push({path:'./list',query:this.body});
     },
 
-    fnAddProc() { //등록 프로세스
+    saveBt() { //등록 프로세스
       if(!this.non) {
         alert("번호를 입력해 주세요");
         this.$refs.non.focus(); //방식으로 선택자를 찾는다.

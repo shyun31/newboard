@@ -8,6 +8,15 @@
     <div class="searchNav">
       번호 : <input id="searchNum" type="number" v-model="searchNum"/>&nbsp;&nbsp;
       제목 : <input id="searchTitle" type="text" v-model="searchTitle"/>&nbsp;&nbsp;
+      구분 : <select v-model="selectList">
+              <option
+                v-for="(item, index) in selectList"
+                :key="index"
+                :value="item.value">{{ item.name }}</option>
+            </select>
+    </div>
+    <br>
+    <div>
       <button id="search" type="submit" @click="searchBt">조회</button>
     </div>
     <div class="pop">
@@ -65,7 +74,9 @@ export default {
       openModal: false,
       searchNum: '',
       searchTitle: null,
-      checkList: []
+      checkList: [],
+      searchCode:'',
+      selectList:'',
     }
   },
   components: {
@@ -75,9 +86,10 @@ export default {
     searchBt() {
       this.body = {
         non : this.searchNum,
-        title : this. searchTitle
+        title : this. searchTitle,
+        largeCode:this.searchCode
       }
-      this.$axios.get('http://localhost:8081/search', {params: this.body})
+      this.$axios.get('/api/search', {params: this.body})
           .then((res) => {
             this.list = res.data
             console.log(this.list)
@@ -90,7 +102,7 @@ export default {
     deleteBt() {
       console.log(this.checkList)
       this.checkList.forEach((data) => {
-        this.$axios.delete('http://localhost:8081/delete/' + data, {})
+        this.$axios.delete('/api/delete/' + data, {})
             .then(() => {
                this.searchBt()
             })

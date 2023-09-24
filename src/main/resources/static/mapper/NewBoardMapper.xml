@@ -12,7 +12,7 @@
             AND non = #{non}
         </if>
         <if test="title != null &amp;&amp; !title.equals('')">
-            AND title = #{title}
+            AND title LIKE CONCAT('%',#{title},'%')
         </if>
     </select>
 
@@ -53,6 +53,9 @@
              , #{regUser}
              , #{modDate}
              , #{modUser}
+             )
+            ON DUPLICATE KEY UPDATE
+             ( #{title}
              )
     </insert>
 </mapper>

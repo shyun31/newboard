@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping
-@RequiredArgsConstructor
+@RequiredArgsConstructor                            // 의존성 주입
 @CrossOrigin(originPatterns = "*")
 public class NewBoardController {
 
@@ -33,7 +33,7 @@ public class NewBoardController {
         newBoardService.deleteBoard(boardNo);
     }
 
-    // 저장
+    // 저장, 수정
     @PostMapping("/save")
     public void board(Board board) {
         newBoardService.insertBoard(board);
